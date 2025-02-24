@@ -2,13 +2,10 @@ import os
 import shutil
 from pathlib import Path
 
-# Directory to watch (e.g., Downloads folder)
-watch_dir = Path('path/to/your/downloads/folder')  # change this path
+watch_dir = Path('path/to/your/downloads/folder')  
 
-# Directory where files will be moved to
-organized_dir = Path('path/to/your/organized/folder')  # change this path
+organized_dir = Path('path/to/your/organized/folder')  
 
-# File extensions to classify and corresponding folder names
 file_types = {
     'Images': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.svg'],
     'Documents': ['.pdf', '.doc', '.docx', '.txt', '.ppt', '.xls', '.xlsx'],
@@ -27,16 +24,14 @@ def create_folders():
 
 def organize_files():
     """Organize files in the download folder based on file types."""
-    # Create directories if they don't exist
+    
     create_folders()
     
-    # Loop through files in the watch directory
     for file in watch_dir.iterdir():
         if file.is_file():
             file_extension = file.suffix.lower()
             moved = False
             
-            # Check file extension and move to the corresponding folder
             for folder, extensions in file_types.items():
                 if file_extension in extensions:
                     target_folder = organized_dir / folder
@@ -44,8 +39,7 @@ def organize_files():
                     print(f"Moved: {file.name} -> {folder}")
                     moved = True
                     break
-            
-            # If file doesn't match any extension, move it to 'Others'
+        
             if not moved:
                 others_folder = organized_dir / 'Others'
                 if not others_folder.exists():
